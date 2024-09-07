@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import TaskList from '../taskList/TaskList';
 import TaskForm from '../taskForm/TaskForm';
 import { fetchTasks } from '../../services/taskService';
-import './TaskManager.css';
+import './TaskManager.css';  // Importa el archivo CSS
 
 const TaskManager = () => {
     const [tasks, setTasks] = useState([]);
     const [editingTask, setEditingTask] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         loadTasks();
@@ -24,10 +25,12 @@ const TaskManager = () => {
 
     const handleEdit = (task) => {
         setEditingTask(task);
+        setIsModalOpen(true);
     };
 
     const handleFormClose = () => {
         setEditingTask(null);
+        setIsModalOpen(false);
         loadTasks();
     };
 
@@ -41,16 +44,42 @@ const TaskManager = () => {
     );
 
     return (
-        <div className="task-manager-container">
-            <input
-                type="text"
-                placeholder="Buscar tareas..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
-            />
-            <TaskList tasks={filteredTasks} onEdit={handleEdit} onTaskUpdate={handleTaskUpdate} />
-            <TaskForm existingTask={editingTask} onFormClose={handleFormClose} />
+        <div>
+            <div className="fixed-header">
+                <h1>Mis Tareas</h1>
+                <input
+                    type="text"
+                    placeholder="Buscar tareas..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="search-input"
+                />
+                <button
+                    onClick={() => {
+                        setEditingTask(null);
+                        setIsModalOpen(true);
+                    }}
+                    className="add-task-button"
+                >
+                    Agregar Nueva Tarea
+                </button>
+            </div>
+            {isModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h2>{editingTask ? 'Editar Tarea' : 'Agregar Nueva Tarea'}</h2>
+                            <button onClick={handleFormClose}>Cerrar</button>
+                        </div>
+                        <div className="modal-body">
+                            <TaskForm existingTask={editingTask} onFormClose={handleFormClose} />
+                        </div>
+                    </div>
+                </div>
+            )}
+            <div className="task-list">
+                <TaskList tasks={filteredTasks} onEdit={handleEdit} onTaskUpdate={handleTaskUpdate} />
+            </div>
         </div>
     );
 };

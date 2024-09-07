@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { addTask, updateTask } from '../../services/taskService';
-import '../taskManager/TaskManager.css';
 
 const TaskForm = ({ existingTask, onFormClose }) => {
     const [task, setTask] = useState({ title: '', description: '' });
@@ -29,14 +28,14 @@ const TaskForm = ({ existingTask, onFormClose }) => {
                 await addTask(task);
                 setTask({ title: '', description: '' });
             }
-            onFormClose();
+            onFormClose();  // Close the form after submission
         } catch (error) {
             console.error('Error handling task submission:', error);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="task-form">
+        <form onSubmit={handleSubmit}>
             <input
                 type="text"
                 name="title"
@@ -54,9 +53,6 @@ const TaskForm = ({ existingTask, onFormClose }) => {
                 required
             />
             <button type="submit">{task.id ? 'Actualizar' : 'Agregar'} Tarea</button>
-            {task.id && (
-                <button type="button" onClick={onFormClose}>Cancelar</button>
-            )}
         </form>
     );
 };
