@@ -34,6 +34,9 @@ Para ejecutar el proyecto, usa el siguiente comando:
 
 ```bash
 yarn start
+```
+
+4. **Instala las dependencias del proyecto con Yarn:**
 
 ## Ejecución del JSON Server
 
@@ -41,4 +44,4 @@ Para instalar y ejecutar, usa el siguiente comando:
 
 ```bash
 npx json-server --watch ./db.json --port 5000
-
+```
