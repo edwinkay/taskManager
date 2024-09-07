@@ -11,6 +11,12 @@
       "title": "Segunda tarea",
       "description": "Descripción de la segunda tarea",
       "completed": false
+    },
+    {
+      "id": "dab0",
+      "title": "Tercera tarea",
+      "description": "Hacer un task",
+      "completed": true
     }
   ]
 }

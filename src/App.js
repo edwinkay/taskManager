@@ -1,5 +1,5 @@
 import React from 'react';
-import TaskManager from './components/TaskManager';
+import TaskManager from './components/taskManager/TaskManager';
 
 
 function App() {

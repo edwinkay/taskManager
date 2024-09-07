@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { addTask, updateTask } from '../services/taskService';
+import { addTask, updateTask } from '../../services/taskService';
+import '../taskManager/TaskManager.css';
 
 const TaskForm = ({ existingTask, onFormClose }) => {
     const [task, setTask] = useState({ title: '', description: '' });
 
     useEffect(() => {
-        // Si existe una tarea para editar, se inicializa con ella
         if (existingTask) {
             setTask(existingTask);
         } else {
-            // Si no hay tarea para editar, se resetea el formulario
             setTask({ title: '', description: '' });
         }
     }, [existingTask]);
@@ -30,15 +29,14 @@ const TaskForm = ({ existingTask, onFormClose }) => {
                 await addTask(task);
                 setTask({ title: '', description: '' });
             }
-            onFormClose();  // Close the form after submission
+            onFormClose();
         } catch (error) {
             console.error('Error handling task submission:', error);
-            // Puedes mostrar una alerta al usuario aquí si lo deseas
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="task-form">
             <input
                 type="text"
                 name="title"
@@ -56,6 +54,9 @@ const TaskForm = ({ existingTask, onFormClose }) => {
                 required
             />
             <button type="submit">{task.id ? 'Actualizar' : 'Agregar'} Tarea</button>
+            {task.id && (
+                <button type="button" onClick={onFormClose}>Cancelar</button>
+            )}
         </form>
     );
 };

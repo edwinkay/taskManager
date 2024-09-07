@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import TaskList from './TaskList';
-import TaskForm from './TaskForm';
-import { fetchTasks } from '../services/taskService'; // Asegúrate de que esto esté importado
+import TaskList from '../taskList/TaskList';
+import TaskForm from '../taskForm/TaskForm';
+import { fetchTasks } from '../../services/taskService';
+import './TaskManager.css';
 
 const TaskManager = () => {
     const [tasks, setTasks] = useState([]);
@@ -9,8 +10,8 @@ const TaskManager = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        loadTasks(); // Cargar tareas al montar el componente
-    }, []); // El array vacío asegura que esto solo se ejecute una vez al montar el componente
+        loadTasks();
+    }, []);
 
     const loadTasks = async () => {
         try {
@@ -27,11 +28,11 @@ const TaskManager = () => {
 
     const handleFormClose = () => {
         setEditingTask(null);
-        loadTasks(); // Re-load tasks when form is closed
+        loadTasks();
     };
 
     const handleTaskUpdate = async () => {
-        loadTasks(); // Re-fetch tasks after any operation
+        loadTasks();
     };
 
     const filteredTasks = tasks.filter(task =>
@@ -40,19 +41,16 @@ const TaskManager = () => {
     );
 
     return (
-        <div>
+        <div className="task-manager-container">
             <input
                 type="text"
                 placeholder="Buscar tareas..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
             />
             <TaskList tasks={filteredTasks} onEdit={handleEdit} onTaskUpdate={handleTaskUpdate} />
-            {editingTask ? (
-                <TaskForm existingTask={editingTask} onFormClose={handleFormClose} />
-            ) : (
-                <TaskForm onFormClose={handleFormClose} />
-            )}
+            <TaskForm existingTask={editingTask} onFormClose={handleFormClose} />
         </div>
     );
 };
