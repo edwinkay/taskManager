@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Primera tarea",
+      "description": "Descripción de la primera tarea",
+      "completed": false
+    },
+    {
+      "id": "2",
+      "title": "Segunda tarea",
+      "description": "Descripción de la segunda tarea",
+      "completed": false
+    }
+  ]
+}
