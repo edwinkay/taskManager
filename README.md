@@ -13,7 +13,7 @@ Este es un proyecto para gestionar tareas. Utiliza React para la interfaz de usu
 1. **Clona el repositorio:**
 
     ```bash
-    git clone https://github.com/tu-usuario/tu-repositorio.git
+    git clone https://github.com/edwinkay/taskManager.git
     ```
 
 2. **Navega al directorio del proyecto:**
